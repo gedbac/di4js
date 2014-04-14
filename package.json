@@ -7,7 +7,9 @@
     "url": "https://github.com/gedbac/di4js/issues"
   },
   "keywords": [
-    "di"
+    "di",
+    "dependency",
+    "injection"
   ],
   "repository": {
     "type": "git",
