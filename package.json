@@ -6,6 +6,9 @@
   "bugs": {
     "url": "https://github.com/gedbac/di4js/issues"
   },
+  "scripts": {
+    "test": "grunt"
+  },
   "keywords": [
     "di",
     "dependency",

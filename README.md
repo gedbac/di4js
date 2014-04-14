@@ -1,6 +1,7 @@
 # di4js
 
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+[![devDependency Status](https://david-dm.org/gedbac/di4js/dev-status.svg)](https://david-dm.org/gedbac/di4js#info=devDependencies)
 
 The __di4js__ module is dependency injection implementation in JavaScript.
 Dependency injection is a software design pattern that allows the removal of
@@ -247,7 +248,7 @@ Property's value is set.
 
 ### di.ref(name)
 
-Maps property on constructor's parameter with registered type in dependency resolver.
+Maps property or constructor's parameter with registered type in dependency resolver.
 
 Constructor's parameter can be resolved while instantiating a type.
 
