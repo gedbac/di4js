@@ -2,6 +2,7 @@
 
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 [![devDependency Status](https://david-dm.org/gedbac/di4js/dev-status.svg)](https://david-dm.org/gedbac/di4js#info=devDependencies)
+[![Build Status](https://secure.travis-ci.org/gedbac/di4js.svg)](http://travis-ci.org/gedbac/di4js)
 
 The __di4js__ module is dependency injection implementation in JavaScript.
 Dependency injection is a software design pattern that allows the removal of
