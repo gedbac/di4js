@@ -43,30 +43,34 @@ software distributed under the terms of the _GNU General Public License version
 
 ## Overview
 
-* Supported platforms
-* Installation
-* API
-	* autowired(value)
-	* register(name)
-		* as(type)
-		* instance(instance)
-		* asSingleton()
-		* withConstructor()
-			* param(name)
-		* withProperties()
-			* prop(name)
-		* val(instance)
-		* ref(name)
-		* setFactory(factory)
-	* resolve(name)
-	* create()
-	* inject(func)
-	* contains(name)
-	* setDefaultFactory(factory)
-	* setNameTransformer(transformer)
-	* dispose()
-	* version
-* License
+* [Supported platforms](#supported-platforms)
+* [Installation](#installation)
+	* [Node.js](#nodejs)
+	* [Web Browser](#web-browser)
+		* [Bower](#bower)
+		* [NuGet](#nuget)
+* [API](#api)
+	* [autowired(value)](#diautowiredvalue)
+	* [register(name)](#diregistername)
+		* [as(type)](#diastype)
+		* [instance(instance)](#diinstanceinstance)
+		* [asSingleton()](#diassingleton)
+		* [withConstructor()](#diwithconstructor)
+			* [param(name)](#diparamname)
+		* [withProperties()](#diwithproperties)
+			* [prop(name)](#dipropname)
+		* [val(instance)](#divalinstance)
+		* [ref(name)](#direfname)
+		* [setFactory(factory)](#disetfactoryfactory)
+	* [resolve(name)](#diresolvename)
+	* [create()](#dicreate)
+	* [inject(func)](#diinjectfunc)
+	* [contains(name)](#dicontainsname)
+	* [setDefaultFactory(factory)](#disetdefaultfactoryfactory)
+	* [setNameTransformer(transformer)](#disetnametransformertransformer)
+	* [dispose()](#didispose)
+	* [version](#diversion)
+* [License](#license)
 
 ## Supported platforms
 
@@ -454,7 +458,7 @@ Sets dependency resolver to initial state. All registered types and instances ar
 
 Returns module's version.
 
-	di.version; // 0.1.0
+	di.version; // 1.0.0
 
 ## License
 
