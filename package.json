@@ -1,7 +1,7 @@
 {
   "name": "di4js",
   "description": "The di4js module is dependency injection implementation in JavaScript. Dependency injection is a software design pattern that allows the removal of hard-coded dependencies and makes it possible to change them.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Gediminas Backevicius <gediminas.backevicius@gmail.com>",
   "bugs": {
     "url": "https://github.com/gedbac/di4js/issues"
@@ -12,7 +12,9 @@
   "keywords": [
     "di",
     "dependency",
-    "injection"
+    "injection",
+    "IoC",
+    "javascript"
   ],
   "repository": {
     "type": "git",
@@ -20,7 +22,7 @@
   },
   "main": "./lib/di4js.js",
   "engines": {
-    "node": "*"
+    "node": ">=0.8"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

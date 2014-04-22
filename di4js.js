@@ -4,7 +4,7 @@ var di = (function () {
 
   var di = {};
 
-  di.version = '1.0.0';
+  di.version = '1.0.1';
 
   di.DependencyResolverException = function (message) {
     this.__name = 'DependencyResolverException';
