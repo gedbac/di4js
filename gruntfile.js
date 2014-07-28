@@ -138,7 +138,9 @@ module.exports = function (grunt) {
     uglify: {
       options: {
         mangle: false,
-        compress: false
+        compress: false,
+        sourceMap: true,
+        sourceMapName: './<%= pkg.name %>.map'
       },
       'browser-min-lib': {
         files: {
@@ -149,6 +151,7 @@ module.exports = function (grunt) {
     jasmine: {
       'spec': {
         src: './<%= pkg.name %>.js',
+        version: '2.0.1',
         options: {
           specs: './spec/**/*.spec.js',
           outfile: './SpecRunner.html',

@@ -1062,6 +1062,19 @@ describe("Spec", function () {
       expect(instance).toBe(engine2);
     });
 
+    it("should resolve type wich has overridden 'toString' function", function () {
+      var MyCustomType = function () {};
+      MyCustomType.toString = function () {
+        return "[Class MyCustomType]";
+      };
+      var child = resolver.create();
+      child
+        .autowired(true)
+        .register('myCustomType')
+          .as(MyCustomType);
+      var instance = child.resolve('myCustomType');
+    });
+
   });
 
 });

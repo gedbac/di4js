@@ -537,17 +537,22 @@ di.DependencyResolver.prototype = {
   },
 
   __getFunctionArguments: function (func) {
-    if (func) {
-      var str = func.toString()
-        .match(/^[\s\(]*function[^(]*\(([^)]*)\)/)[1]
-        .replace(/\/\/.*?[\r\n]|\/\*(?:.|[\r\n])*?\*\//g, '')
-        .replace(/\s+/g, '');
-      if (str) {
-        return str.split(',');
+      if (func && typeof func === 'function' && 'toString' in func) {
+        var str = null;
+        var result = func
+          .toString()
+          .match(/^[\s\(]*function[^(]*\(([^)]*)\)/);
+        if (result && result.length > 1) {
+          str = result[1]
+            .replace(/\/\/.*?[\r\n]|\/\*(?:.|[\r\n])*?\*\//g, '')
+            .replace(/\s+/g, '');
+        }
+        if (str) {
+          return str.split(',');
+        }
       }
-    }
-    return [];
-  },
+      return [];
+    },
 
   __resolve: function (name, context) {
     if (!name) {
