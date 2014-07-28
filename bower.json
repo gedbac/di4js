@@ -10,7 +10,9 @@
   "keywords": [
     "di",
     "dependency",
-    "injection"
+    "injection",
+    "IoC",
+    "javascript"
   ],
   "ignore": [
     "**/.*",
