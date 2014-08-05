@@ -1073,6 +1073,7 @@ describe("Spec", function () {
         .register('myCustomType')
           .as(MyCustomType);
       var instance = child.resolve('myCustomType');
+      expect(instance).not.toBeNull();
     });
 
   });
