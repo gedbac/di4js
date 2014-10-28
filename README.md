@@ -7,8 +7,8 @@
 The __di4js__ module is dependency injection implementation in JavaScript.
 Dependency injection is a software design pattern that allows the removal of
 hard-coded dependencies and makes it possible to change them. __di4js__  is free
-software distributed under the terms of the _GNU General Public License version
-3_ and can be used with __web browsers__ or with __node.js__.
+software distributed under the terms of the MIT License (MIT) and can be used
+with __web browsers__ or with __node.js__.
 
     var Car = function (engine, year) {
       this.engine = engine;
@@ -99,9 +99,9 @@ To install __di4js__ module for Node.js, this command should be used:
 Also __di4js__ module's loading statement should be added to main module:
 
 	'use strict';
-	    
+
 	var di = require('di4js');
-	    
+
 	// Your code goes here...
 
 ### Web Browser
@@ -385,7 +385,7 @@ Replaces default factory of dependecy resolver. Factory is used to create instan
 A function can be used.
 
 	di
-	  .setDefaultFactory(function (options) { 
+	  .setDefaultFactory(function (options) {
 	    return new options.type();
 	  })
 	  .register('dieselEngine')
@@ -398,7 +398,7 @@ An object which has method *created* can be used.
 	    return new options.type();
 	  }
 	};
-	
+
 	di
 	  .setDefaultFactory(customFactory)
 	  .register('dieselEngine')
@@ -421,7 +421,7 @@ A function can be used.
 	    .as(DieselEngine)
 	  .register('tractor')
 	    .as(Tractor);
-	
+
 	di.resolve('tractor'); // { dieselEngine: { hp: 0 } }
 
 An object which has method *transform* can be used.

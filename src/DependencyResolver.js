@@ -67,14 +67,16 @@ di.DependencyResolver.prototype = {
   },
 
   as: function (type) {
-    if (!type) {
-      throw new di.DependencyResolverException("Parameter 'type' is not passed to the method 'as'");
-    }
-    if (typeof type !== 'function') {
-      throw new di.DependencyResolverException("Parameter 'type' passed to the method 'as' has to be a 'function'");
-    }
     if (!this.__registration) {
       throw new di.DependencyResolverException("Registration's name is not defined");
+    }
+    if (!type) {
+      throw new di.DependencyResolverException("Parameter 'type' is not passed to the method 'as' for " +
+        "registration '" + this.__registration.name + "'");
+    }
+    if (typeof type !== 'function') {
+      throw new di.DependencyResolverException("Parameter 'type' passed to the method 'as' has to be a 'function' " +
+        "for registration '" + this.__registration.name + "'");
     }
     this.__registration.instance = null;
     this.__registration.type = type;
@@ -91,11 +93,12 @@ di.DependencyResolver.prototype = {
   },
 
   instance: function (instance) {
-    if (instance === null || instance === undefined) {
-      throw new di.DependencyResolverException("Parameter 'instance' is not passed to the method 'instance'");
-    }
     if (!this.__registration) {
       throw new di.DependencyResolverException("Registration's name is not defined");
+    }
+    if (instance === null || instance === undefined) {
+      throw new di.DependencyResolverException("Parameter 'instance' is not passed to the method 'instance' for " +
+        "registration '" + this.__registration.name + "'");
     }
     this.__registration.instance = instance;
     this.__registration.type = null;
@@ -145,10 +148,11 @@ di.DependencyResolver.prototype = {
       throw new di.DependencyResolverException("Registration's name is not defined");
     }
     if (!this.__registration.type) {
-      throw new di.DependencyResolverException("Type is not set for registration '" + this.__registration.name);
+      throw new di.DependencyResolverException("Type is not set for registration '" + this.__registration.name + "'");
     }
     if (!this.__withConstructor) {
-      throw new di.DependencyResolverException("Invocation of method 'withConstructor' is missing");
+      throw new di.DependencyResolverException("Invocation of method 'withConstructor' is missing for " +
+        "registration '" + this.__registration.name + "'");
     }
     var parameters = this.__registration.dependencies.parameters,
         parameter = null,
@@ -162,7 +166,8 @@ di.DependencyResolver.prototype = {
         index = name;
         name = undefined;
         if (index < 0) {
-          throw di.DependencyResolverException("Parameter 'name' passed to the method 'param' is out of range");
+          throw di.DependencyResolverException("Parameter 'name' passed to the method 'param' is out of range for " +
+            "registration '" + this.__registration.name + "'");
         }
         if (index < parameters.length) {
           parameter = parameters[index];
@@ -176,7 +181,7 @@ di.DependencyResolver.prototype = {
         }
       } else {
         throw new di.DependencyResolverException("Parameter 'name' passed to the method 'param' has to " +
-          "be a 'number' or a 'string'");
+          "be a 'number' or a 'string' for registration '" + this.__registration.name + "'");
       }
     }
     if (!parameter) {
@@ -198,7 +203,7 @@ di.DependencyResolver.prototype = {
       throw new di.DependencyResolverException("Registration's name is not defined");
     }
     if (!this.__registration.type) {
-      throw new di.DependencyResolverException("Type is not set for registration '" + this.__registration.name);
+      throw new di.DependencyResolverException("Type is not set for registration '" + this.__registration.name + "'");
     }
     this.__withProperties = true;
     this.__withConstructor = false;
@@ -208,21 +213,23 @@ di.DependencyResolver.prototype = {
   },
 
   prop: function (name) {
-    if (!name) {
-      throw new di.DependencyResolverException("Parameter 'name' is not passed to the method 'prop'");
-    }
-    if (typeof name !== 'string') {
-      throw new di.DependencyResolverException("Parameter 'name' passed to the method 'prop' has to be" +
-        " a 'string'");
-    }
     if (!this.__registration) {
       throw new di.DependencyResolverException("Registration's name is not defined");
     }
+    if (!name) {
+      throw new di.DependencyResolverException("Parameter 'name' is not passed to the method 'prop' for " +
+        "registration '" + this.__registration.name + "'");
+    }
+    if (typeof name !== 'string') {
+      throw new di.DependencyResolverException("Parameter 'name' passed to the method 'prop' has to be" +
+        " a 'string' for registration '" + this.__registration.name + "'");
+    }
     if (!this.__registration.type) {
-      throw new di.DependencyResolverException("Type is not set for registration '" + this.__registration.name);
+      throw new di.DependencyResolverException("Type is not set for registration '" + this.__registration.name + "'");
     }
     if (!this.__withProperties) {
-      throw new di.DependencyResolverException("Invocation of method 'withProperties' is missing");
+      throw new di.DependencyResolverException("Invocation of method 'withProperties' is missing for " +
+        "registration '" + this.__registration.name + "'");
     }
     var properties = this.__registration.dependencies.properties,
         property = null;
@@ -245,6 +252,9 @@ di.DependencyResolver.prototype = {
   },
 
   val: function (instance) {
+    if (!this.__registration) {
+      throw new di.DependencyResolverException("Registration's name is not defined");
+    }
     if (instance === null || instance === undefined) {
       throw new di.DependencyResolverException("Parameter 'instance' is not passed to the method 'val'");
     }
@@ -269,22 +279,28 @@ di.DependencyResolver.prototype = {
   },
 
   ref: function (name) {
+    if (!this.__registration) {
+      throw new di.DependencyResolverException("Registration's name is not defined");
+    }
     if (!name) {
-      throw new di.DependencyResolverException("Parameter 'name' is not passed to the method 'ref'");
+      throw new di.DependencyResolverException("Parameter 'name' is not passed to the method 'ref' for " +
+        "registration '" + this.__registration.name + "'");
     }
     if (typeof name !== 'string') {
       throw new di.DependencyResolverException("Parameter 'name' passed to the method 'ref' has to " +
-        "be a 'string'");
+        "be a 'string' for registration '" + this.__registration.name + "'");
     }
     if (!this.__withProperties && !this.__withConstructor) {
       throw new di.DependencyResolverException("Invocation of method 'withConstructor' or 'withProperties' " +
-        "is missing");
+        "is missing for registration '" + this.__registration.name + "'");
     }
     if (this.__withConstructor && !this.__parameter) {
-      throw new di.DependencyResolverException("Parameter is not defined");
+      throw new di.DependencyResolverException("Parameter is not defined for registration '" +
+        this.__registration.name + "'");
     }
     if (this.__withProperties && !this.__property) {
-      throw new di.DependencyResolverException("Property is not defined");
+      throw new di.DependencyResolverException("Property is not defined for registration '" +
+        this.__registration.name + "'");
     }
     if (!this.contains(name)) {
       throw di.DependencyResolverException("Type or instance is not registered with name '" + name + "'");
@@ -300,6 +316,9 @@ di.DependencyResolver.prototype = {
   },
 
   setFactory: function (factory) {
+    if (!this.__registration) {
+      throw new di.DependencyResolverException("Registration's name is not defined");
+    }
     if (!factory) {
       throw new di.DependencyResolverException("Parameter 'factory' is not passed to the method 'setFactory");
     }
@@ -310,9 +329,6 @@ di.DependencyResolver.prototype = {
     if (typeof factory === 'object' && !('create' in factory)) {
       throw new di.DependencyResolverException("Factory's instance passed to the method 'setFactory' has to have " +
         "a method 'create'");
-    }
-    if (!this.__registration) {
-      throw new di.DependencyResolverException("Registration's name is not defined");
     }
     if (!this.__registration.type) {
       throw new di.DependencyResolverException("Type is not set for registration '" + this.__registration.name);
