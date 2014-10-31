@@ -143,7 +143,7 @@ If autowired is enabled for dependency resolver, all type's or instance's depend
       .register('car')
         .as(Car);
 
-    di.resolve('car'); // { hp: 42 }
+    di.resolve('car'); // { engine: { hp: 42 } }
 
 ### di.register(name)
 
@@ -191,7 +191,7 @@ Allows to define constructor's parameters.
 
 Defines constructor's parameter. Parameter *name* is optional and has to be a string or integer. It can represent parameter's name or index.
 
-Parameter's name can be not set.
+Parameter can be defined without name. Index will be assigned automatically.
 
     di
       .register('car')
@@ -202,7 +202,7 @@ Parameter's name can be not set.
 
     di.resolve('car'); // { engine: { hp: 0 }, year: 1976 }
 
-Parameter's name or index can be set.
+Parameter can be defined by name or index.
 
     di
       .register('car')
@@ -219,7 +219,7 @@ Allows to define type's properties.
 
 ### di.prop(name)
 
-Defines type's property. Parameter *name* is required and has to be a string.
+Defines property. Parameter *name* is required and has to be a string.
 
 	di
 	  .register('dieselEngine')
@@ -229,9 +229,9 @@ Defines type's property. Parameter *name* is required and has to be a string.
 
 ### di.val(instance)
 
-Sets property's or constructor's paramter's value. Parameter *instance* is required and can be any type.
+Allows to define property's or constructor paramter's value. Parameter *instance* is required and can be any type.
 
-Constructor's parameter's value is set.
+Constructor parameter's value is defined.
 
 	di
 	  .register('dieselEngine')
@@ -239,7 +239,7 @@ Constructor's parameter's value is set.
 		.withConstructor()
 		  .param().value(140);
 
-Property's value is set.
+Property's value is defined.
 
 	di
 	  .register('dieselEngine')
