@@ -464,4 +464,4 @@ Returns module's version.
 
 ## License
 
-This software is distributed under the terms of under the terms of the MIT License (MIT).
+This software is distributed under the terms of the MIT License (MIT).
