@@ -190,6 +190,26 @@ module.exports = function (grunt) {
         files: './spec/**/*.spec.js',
         tasks: [ 'jshint:spec', 'jasmine:spec', 'jasmine_node:spec' ]
       }
+    },
+    karma: {
+      options: {
+        port: 9876,
+        reporters: ['dots', 'html'],
+        files: [
+          './di4js.js',
+          './spec/**/*.js'
+        ],
+        frameworks: [ 'jasmine' ],
+        browsers: [ 'Chrome', 'Firefox', 'IE' ]
+      },
+      'watch': {
+        autoWatch: true,
+        singleRun: false
+      },
+      'single': {
+        autoWatch: false,
+        singleRun: true
+      }
     }
   });
 
@@ -208,6 +228,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-jasmine-node');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-karma');
 
   grunt.registerTask('default', [
     'jshint:src',
