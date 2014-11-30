@@ -73,6 +73,7 @@ with __web browsers__ or with __node.js__.
 	* [dispose()](#didispose)
 	* [version](#diversion)
 * [License](#license)
+* [Authors](#authors)
 
 ## Supported platforms
 
@@ -465,3 +466,7 @@ Returns module's version.
 ## License
 
 This software is distributed under the terms of the MIT License (MIT).
+
+## Authors
+
+Gediminas Backevcius / [@gedbac](https://twitter.com/gedbac)
