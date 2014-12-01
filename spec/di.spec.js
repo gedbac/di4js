@@ -117,7 +117,7 @@ describe("Spec", function () {
 
   it("should activate auto resolving", function () {
     di.autowired();
-    expect(di.__defaultDependencyResolver.__autowired).toBe(true);
+    expect(di.getDefaultDependencyResolver().isAutowired).toBe(true);
   });
 
   it("should resolve registered type", function () {

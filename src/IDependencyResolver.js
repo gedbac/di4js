@@ -1,53 +1,129 @@
-di.IDependencyResolver = {
+var IDependencyResolver = Object.create(Object.prototype, {
 
-  autowired: function (value) {},
+  isAutowired: {
+    get: function () {},
+    enumerable: true
+  },
 
-  register: function (name) {},
+  autowired: {
+    value: function (value) {},
+    enumerable: true
+  },
 
-  as: function (type) {},
+  register: {
+    value: function (name) {},
+    enumerable: true
+  },
 
-  instance: function (instance) {},
+  as: {
+    value: function (type) {},
+    enumerable: true
+  },
 
-  asSingleton: function () {},
+  instance: {
+    value: function (instance) {},
+    enumerable: true
+  },
 
-  withConstructor: function () {},
+  asSingleton: {
+    value: function () {},
+    enumerable: true
+  },
 
-  param: function (name) {},
+  withConstructor: {
+    value: function () {},
+    enumerable: true
+  },
 
-  withProperties: function (name) {},
+  param: {
+    value: function (name) {},
+    enumerable: true
+  },
 
-  prop: function (name) {},
+  withProperties: {
+    value: function (name) {},
+    enumerable: true
+  },
 
-  val: function (instance) {},
+  prop: {
+    value: function (name) {},
+    enumerable: true
+  },
 
-  ref: function (name) {},
+  val: {
+    value: function (instance) {},
+    enumerable: true
+  },
 
-  setFactory: function (factory) {},
+  ref: {
+    value: function (name) {},
+    enumerable: true
+  },
 
-  create: function () {},
+  setFactory: {
+    value: function (factory) {},
+    enumerable: true
+  },
 
-  inject: function (func, name) {},
+  create: {
+    value: function () {},
+    enumerable: true
+  },
 
-  contains: function (name) {},
+  inject: {
+    value: function (func, name) {},
+    enumerable: true
+  },
 
-  resolve: function (name) {},
+  contains: {
+    value: function (name) {},
+    enumerable: true
+  },
 
-  getDefaultFactory: function () {},
+  resolve: {
+    value: function (name) {},
+    enumerable: true
+  },
 
-  setDefaultFactory: function (factory) {},
+  getDefaultFactory: {
+    value: function () {},
+    enumerable: true
+  },
 
-  getNameTransformer: function () {},
+  setDefaultFactory: {
+    value: function (factory) {},
+    enumerable: true
+  },
 
-  setNameTransformer: function (transformer) {},
+  getNameTransformer: {
+    value: function () {},
+    enumerable: true
+  },
 
-  getRegistration: function (name) {},
+  setNameTransformer: {
+    value: function (transformer) {},
+    enumerable: true
+  },
 
-  dispose: function () {},
+  getRegistration: {
+    value: function (name) {},
+    enumerable: true
+  },
 
-  toString: function () {
-    return '[object di.IDependencyResolver]';
+  dispose: {
+    value: function () {},
+    enumerable: true
+  },
+
+  toString: {
+    value: function () {
+      return '[object IDependencyResolver]';
+    },
+    enumerable: true
   }
 
-};
+});
 
-Object.freeze(di.IDependencyResolver);
+Object.freeze(IDependencyResolver);
+
+exports.IDependencyResolver = IDependencyResolver;

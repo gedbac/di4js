@@ -37,15 +37,16 @@ module.exports = function (grunt) {
         options: {
           separator: os.EOL + os.EOL,
           banner:
-            "var di = (function () {" + os.EOL + os.EOL +
+            "var di = di || {};" + os.EOL + os.EOL +
+            "(function (exports) {" + os.EOL + os.EOL +
             "  'use strict';" + os.EOL + os.EOL +
-            "  var di = {};" + os.EOL + os.EOL +
-            "  di.version = '<%= pkg.version %>';" + os.EOL + os.EOL,
+            "  if (!('version' in exports)) {" + os.EOL +
+            "    exports.version = '<%= pkg.version %>';" + os.EOL +
+            "  }" + os.EOL + os.EOL,
           footer:
             os.EOL + os.EOL +
-            "  Object.freeze(di);" + os.EOL + os.EOL +
-            "  return di;" + os.EOL + os.EOL +
-            "} ());",
+            "  return exports;" + os.EOL + os.EOL +
+            "} (di));",
           process: function (src, filepath) {
             var lines = src.split(os.EOL);
             for (var i = 0; i < lines.length; i++) {
@@ -63,11 +64,11 @@ module.exports = function (grunt) {
           separator: os.EOL + os.EOL,
           banner:
             "'use strict';" + os.EOL + os.EOL +
-            "var di = {};" + os.EOL + os.EOL +
-            "di.version = '<%= pkg.version %>';" + os.EOL + os.EOL,
+            "var exports = {};" + os.EOL + os.EOL +
+            "exports.version = '<%= pkg.version %>';" + os.EOL + os.EOL,
           footer:
             os.EOL + os.EOL +
-            "module.exports = di;"
+            "module.exports = exports;"
         },
         src: src,
         dest: './lib/<%= pkg.name %>.js',

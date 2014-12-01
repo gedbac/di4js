@@ -1,11 +1,19 @@
-di.IInstanceFactory = {
+var IInstanceFactory = Object.create(Object.prototype, {
 
-  create: function (options) {},
+  create: {
+    value: function (options) {},
+    enumerable: true
+  },
 
-  toString: function () {
-    return '[object di.IInstanceFactory]';
+  toString: {
+    value: function () {
+      return '[object IInstanceFactory]';
+    },
+    enumerable: true
   }
 
-};
+});
 
-Object.freeze(di.IInstanceFactory);
+Object.freeze(IInstanceFactory);
+
+exports.IInstanceFactory = IInstanceFactory;

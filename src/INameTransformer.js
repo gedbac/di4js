@@ -1,11 +1,19 @@
-di.INameTransformer = {
+var INameTransformer = Object.create(Object.prototype, {
 
-  transform: function (name) {},
+  transform: {
+    value: function (name) {},
+    enumerable: true
+  },
 
-  toString: function () {
-    return '[object di.INameTransformer]';
+  toString: {
+    value: function () {
+      return '[object INameTransformer]';
+    },
+    enumerable: true
   }
 
-};
+});
 
-Object.freeze(di.INameTransformer);
+Object.freeze(INameTransformer);
+
+exports.INameTransformer = INameTransformer;

@@ -1,21 +1,29 @@
-di.NameTransformer = function () {
+var NameTransformer = function () {
   Object.seal(this);
 };
 
-di.NameTransformer.prototype = {
+NameTransformer.prototype = Object.create(Object.prototype, {
 
-  transform: function (name) {
-    if (!name) {
-      throw new di.DependencyResolverException("Parameter 'name' is not passed to the method 'transform'");
-    }
-    return name;
+  transform: {
+    value: function (name) {
+      if (!name) {
+        throw new DependencyResolverException("Parameter 'name' is not passed to the method 'transform'");
+      }
+      return name;
+    },
+    enumerable: true
   },
 
-  toString: function () {
-    return '[object di.NameTransformer]';
+  toString: {
+    value: function () {
+      return '[object NameTransformer]';
+    },
+    enumerable: true
   }
 
-};
+});
 
-Object.seal(di.NameTransformer);
-Object.seal(di.NameTransformer.prototype);
+Object.seal(NameTransformer);
+Object.seal(NameTransformer.prototype);
+
+exports.NameTransformer = NameTransformer;

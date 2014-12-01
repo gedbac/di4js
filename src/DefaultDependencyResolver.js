@@ -1,91 +1,97 @@
-di.__defaultDependencyResolver = new di.DependencyResolver();
+var __defaultDependencyResolver = new DependencyResolver();
 
-di.autowired = function (value) {
-  return di.__defaultDependencyResolver.autowired(value);
+exports.getDefaultDependencyResolver = function () {
+  return __defaultDependencyResolver;
 };
 
-di.register = function (name) {
-  return di.__defaultDependencyResolver.register(name);
+exports.setDefaultDependencyResolver = function (value) {
+  __defaultDependencyResolver = value;
 };
 
-di.as = function (type) {
-  return di.__defaultDependencyResolver.as(type);
+exports.autowired = function (value) {
+  return __defaultDependencyResolver.autowired(value);
 };
 
-di.instance = function (instance) {
-  return di.__defaultDependencyResolver.instance(instance);
+exports.register = function (name) {
+  return __defaultDependencyResolver.register(name);
 };
 
-di.asSingleton = function () {
-  return di.__defaultDependencyResolver.asSingleton();
+exports.as = function (type) {
+  return __defaultDependencyResolver.as(type);
 };
 
-di.withConstructor = function () {
-  return di.__defaultDependencyResolver.withConstructor();
+exports.instance = function (instance) {
+  return __defaultDependencyResolver.instance(instance);
 };
 
-di.param = function (name) {
-  return di.__defaultDependencyResolver.param(name);
+exports.asSingleton = function () {
+  return __defaultDependencyResolver.asSingleton();
 };
 
-di.withProperties = function (name) {
-  return di.__defaultDependencyResolver.withProperties();
+exports.withConstructor = function () {
+  return __defaultDependencyResolver.withConstructor();
 };
 
-di.prop = function (name) {
-  return di.__defaultDependencyResolver.prop(name);
+exports.param = function (name) {
+  return __defaultDependencyResolver.param(name);
 };
 
-di.val = function (instance) {
-  return di.__defaultDependencyResolver.val(instance);
+exports.withProperties = function (name) {
+  return __defaultDependencyResolver.withProperties();
 };
 
-di.ref = function (name) {
-  return di.__defaultDependencyResolver.ref(name);
+exports.prop = function (name) {
+  return __defaultDependencyResolver.prop(name);
 };
 
-di.setFactory = function (factory) {
-  return di.__defaultDependencyResolver.setFactory(factory);
+exports.val = function (instance) {
+  return __defaultDependencyResolver.val(instance);
 };
 
-di.create = function () {
-  return di.__defaultDependencyResolver.create();
+exports.ref = function (name) {
+  return __defaultDependencyResolver.ref(name);
 };
 
-di.inject = function (func, name) {
-  return di.__defaultDependencyResolver.inject(func, name);
+exports.setFactory = function (factory) {
+  return __defaultDependencyResolver.setFactory(factory);
 };
 
-di.contains = function (name) {
-  return di.__defaultDependencyResolver.contains(name);
+exports.create = function () {
+  return __defaultDependencyResolver.create();
 };
 
-di.resolve = function (name) {
-  return di.__defaultDependencyResolver.resolve(name);
+exports.inject = function (func, name) {
+  return __defaultDependencyResolver.inject(func, name);
 };
 
-di.getDefaultFactory = function () {
-  return di.__defaultDependencyResolver.getDefaultFactory();
+exports.contains = function (name) {
+  return __defaultDependencyResolver.contains(name);
 };
 
-di.setDefaultFactory = function (factory) {
-  return di.__defaultDependencyResolver.setDefaultFactory(factory);
+exports.resolve = function (name) {
+  return __defaultDependencyResolver.resolve(name);
 };
 
-di.getNameTransformer = function () {
-  return di.__defaultDependencyResolver.getNameTransformer();
+exports.getDefaultFactory = function () {
+  return __defaultDependencyResolver.getDefaultFactory();
 };
 
-di.setNameTransformer = function (transformer) {
-  return di.__defaultDependencyResolver.setNameTransformer(transformer);
+exports.setDefaultFactory = function (factory) {
+  return __defaultDependencyResolver.setDefaultFactory(factory);
 };
 
-di.getRegistration = function (name) {
-  return di.__defaultDependencyResolver.getRegistration(name);
+exports.getNameTransformer = function () {
+  return __defaultDependencyResolver.getNameTransformer();
 };
 
-di.dispose = function () {
-  return di.__defaultDependencyResolver.dispose();
+exports.setNameTransformer = function (transformer) {
+  return __defaultDependencyResolver.setNameTransformer(transformer);
 };
 
-Object.defineProperty(di, '__defaultDependencyResolver', { enumerable: false });
+exports.getRegistration = function (name) {
+  return __defaultDependencyResolver.getRegistration(name);
+};
+
+exports.dispose = function () {
+  return __defaultDependencyResolver.dispose();
+};

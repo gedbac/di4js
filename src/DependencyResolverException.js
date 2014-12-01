@@ -1,4 +1,4 @@
-di.DependencyResolverException = function (message) {
+var DependencyResolverException = function (message) {
   this.__name = 'DependencyResolverException';
   this.__stack = null;
   this.__message = message || "A dependency resolver exception has occurred.";
@@ -59,41 +59,52 @@ di.DependencyResolverException = function (message) {
   Object.seal(this);
 };
 
-di.DependencyResolverException.prototype = {
+DependencyResolverException.prototype = Object.create(Object.prototype, {
 
-  get name() {
-    return this.__name;
+  name: {
+    get: function () {
+      return this.__name;
+    },
+    set: function (value) {
+      this.__name = value;
+    },
+    enumerable: true
   },
 
-  set name(value) {
-    this.__name = value;
+  message: {
+    get: function () {
+      return this.__message;
+    },
+    set: function (value) {
+      this.__message = value;
+    },
+    enumerable: true
   },
 
-  get message() {
-    return this.__message;
+  stack: {
+    get: function () {
+      return this.__stack;
+    },
+    set: function (value) {
+      this.__stack = value;
+    },
+    enumerable: true
   },
 
-  set message(value) {
-    this.__message = value;
-  },
-
-  get stack() {
-    return this.__stack;
-  },
-
-  set stack(value) {
-    this.__stack = value;
-  },
-
-  toString: function () {
-    var msg = this.name + ': ' + this.message;
-    if (this.stack) {
-      msg += '\n\t' + this.stack.replace(/\n/g, '\n\t');
-    }
-    return msg;
+  toString: {
+    value: function () {
+      var msg = this.name + ': ' + this.message;
+      if (this.stack) {
+        msg += '\n\t' + this.stack.replace(/\n/g, '\n\t');
+      }
+      return msg;
+    },
+    enumerable: true
   }
 
-};
+});
 
-Object.seal(di.DependencyResolverException);
-Object.seal(di.DependencyResolverException.prototype);
+Object.seal(DependencyResolverException);
+Object.seal(DependencyResolverException.prototype);
+
+exports.DependencyResolverException = DependencyResolverException;
