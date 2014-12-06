@@ -251,6 +251,26 @@ describe("Spec", function () {
     });
     expect(callback).toHaveBeenCalledWith(engine);
   });
+  
+  it("should inject dependencies with custom names to the module automatically", function () {
+    var customNameTransformer = {
+      transform: function (name) {
+        return name.replace(/([A-Z])/g, function (str) {
+          return '-' + str.toLowerCase();
+        });
+      }
+    };
+    var callback = jasmine.createSpy();
+    var engine = new DieselEngine();
+    di
+      .setNameTransformer(customNameTransformer)
+      .register('diesel-engine')
+        .instance(engine);
+    di.inject(function (dieselEngine) {
+      callback(dieselEngine);
+    });
+    expect(callback).toHaveBeenCalledWith(engine);
+  });
 
   it("should inject dependencies to the module", function () {
     var callback = jasmine.createSpy();
@@ -307,6 +327,29 @@ describe("Spec", function () {
         .as(Car)
           .withProperties()
             .prop('engine').ref('dieselEngine');
+    var car = new Car();
+    di.inject(car, 'car');
+    expect(car.engine).toBe(engine);
+  });
+
+  it("should inject dependencies with custom names to the object", function () {
+    var customNameTransformer = {
+      transform: function (name) {
+        return name.replace(/([A-Z])/g, function (str) {
+          return '-' + str.toLowerCase();
+        });
+      }
+    };
+    var callback = jasmine.createSpy();
+    var engine = new DieselEngine();
+    di
+      .setNameTransformer(customNameTransformer)
+      .register('diesel-engine')
+        .instance(engine)
+      .register('car')
+        .as(Car)
+          .withProperties()
+            .prop('engine').ref('diesel-engine');
     var car = new Car();
     di.inject(car, 'car');
     expect(car.engine).toBe(engine);

@@ -860,14 +860,16 @@ var di = di || {};
             }
             registration = this.getRegistration(name);
           }
+          var dependencyName;
           if (typeof func === 'function') {
             if (registration) {
               parameters = this.__getConstructorParameters(registration, context);
             } else {
               var args = this.__getFunctionArguments(func);
               for (i = 0; i < args.length; i++) {
-                if (this.contains(args[i])) {
-                  parameters.push(this.__resolve(args[i], context));
+                dependencyName = this.__resolveDependencyName(args[i]);
+                if (this.contains(dependencyName)) {
+                  parameters.push(this.__resolve(dependencyName, context));
                 } else {
                   parameters.push(null);
                 }
@@ -879,10 +881,11 @@ var di = di || {};
               this.__setProperties(func, registration, context);
             } else {
               for (var propertyName in func) {
-                if (this.contains(propertyName)) {
+                dependencyName = this.__resolveDependencyName(propertyName);
+                if (this.contains(dependencyName)) {
                   parameters.push({
                     name: propertyName,
-                    value: this.__resolve(propertyName, context)
+                    value: this.__resolve(dependencyName, context)
                   });
                 }
               }
@@ -1239,9 +1242,9 @@ var di = di || {};
         if (registration.dependencies) {
           if (this.__autowired) {
             for (var propertyName in instance) {
-              var dependency = this.__resolveDependencyName(propertyName);
-              if (!this.__hasProperty(propertyName) && this.contains(dependency)) {
-                instance[propertyName] = this.__resolve(dependency, context);
+              var dependencyName = this.__resolveDependencyName(propertyName);
+              if (!this.__hasProperty(propertyName) && this.contains(dependencyName)) {
+                instance[propertyName] = this.__resolve(dependencyName, context);
               }
             }
           }
