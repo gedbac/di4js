@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.7 (2014-12-01)
+
+- Fixed bug: Dependencies' names has not been transformed while resolving dependencies in method 'inject'
+- Fixed bug: Dependecy resolver has been trying to resolve non existant dependency 'toString'
+
 ## 1.0.6 (2014-10-31)
 
 - Documentation has been updated

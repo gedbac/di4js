@@ -5,7 +5,7 @@ var di = di || {};
   'use strict';
 
   if (!('version' in exports)) {
-    exports.version = '1.0.6';
+    exports.version = '1.0.7';
   }
 
   var DependencyResolverException = function (message) {

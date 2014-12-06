@@ -272,6 +272,26 @@ describe("Spec", function () {
     expect(callback).toHaveBeenCalledWith(engine);
   });
 
+   it("should inject dependencies with custom names to the module automatically", function () {
+    var customNameTransformer = {
+      transform: function (name) {
+        return name.replace(/([A-Z])/g, function (str) {
+          return '-' + str.toLowerCase();
+        });
+      }
+    };
+    var callback = jasmine.createSpy();
+    var engine = new DieselEngine();
+    di
+      .setNameTransformer(customNameTransformer)
+      .register('diesel-engine')
+        .instance(engine);
+    di.inject(function (dieselEngine) {
+      callback(dieselEngine);
+    });
+    expect(callback).toHaveBeenCalledWith(engine);
+  });
+
   it("should inject dependencies to the module", function () {
     var callback = jasmine.createSpy();
     var engine = new DieselEngine();
