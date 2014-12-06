@@ -56,7 +56,7 @@ DependencyResolver.prototype = Object.create(Object.prototype, {
           "a 'string'");
       }
       if (!this.__container) {
-        this.__container = {};
+        this.__container = Object.create(null);
       }
       var registration;
       if (!(name in this.__container)) {

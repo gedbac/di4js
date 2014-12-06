@@ -53,6 +53,7 @@ with __web browsers__ or with __node.js__.
 		* [NuGet](#nuget)
 * [API](#api)
 	* [autowired(value)](#diautowiredvalue)
+    * [isAutowired](#diisautowired)
 	* [register(name)](#diregistername)
 		* [as(type)](#diastype)
 		* [instance(instance)](#diinstanceinstance)
@@ -70,6 +71,8 @@ with __web browsers__ or with __node.js__.
 	* [contains(name)](#dicontainsname)
 	* [setDefaultFactory(factory)](#disetdefaultfactoryfactory)
 	* [setNameTransformer(transformer)](#disetnametransformertransformer)
+    * [getDefaultDependencyResolver()](#digetdefaultdependencyresolver)
+    * [setDefaultDependencyResolver(value)](#disetdefaultdependencyresolvervalue)
 	* [dispose()](#didispose)
 	* [version](#diversion)
 * [License](#license)
@@ -145,6 +148,15 @@ If autowired is enabled for dependency resolver, all type's or instance's depend
         .as(Car);
 
     di.resolve('car'); // { engine: { hp: 42 } }
+    
+### di.isAutowired
+
+Allows to check if autowired is enabled.
+
+    di
+      .autowired();
+      
+    di.isAutowired; // true
 
 ### di.register(name)
 
@@ -444,6 +456,14 @@ An object which has method *transform* can be used.
 	    .as(Tractor);
 
 	di.resolve('tractor'); { dieselEngine: { hp: 0 } }
+    
+### di.getDefaultDependencyResolver()
+
+Returns default dependency resolver.
+
+### di.setDefaultDependencyResolver(value)
+
+Allows to set default dependency resolver.
 
 ### di.dispose()
 
