@@ -1,11 +1,17 @@
-var di = di || {};
-
 (function (exports) {
 
   'use strict';
 
+  exports = exports || {};
+
+  if (typeof define === 'function' && define.amd) {
+    define(function(){ return exports; });
+  } else {
+    window.di = exports; 
+  }
+
   if (!('version' in exports)) {
-    exports.version = '1.0.7';
+    exports.version = '1.1.0';
   }
 
   var DependencyResolverException = function (message) {
@@ -1492,6 +1498,4 @@ var di = di || {};
     enumerable: true
   });
 
-  return exports;
-
-} (di));
+} (window.di));

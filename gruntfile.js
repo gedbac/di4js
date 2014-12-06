@@ -37,16 +37,20 @@ module.exports = function (grunt) {
         options: {
           separator: os.EOL + os.EOL,
           banner:
-            "var di = di || {};" + os.EOL + os.EOL +
             "(function (exports) {" + os.EOL + os.EOL +
             "  'use strict';" + os.EOL + os.EOL +
+            "  exports = exports || {};" + os.EOL + os.EOL +
+            "  if (typeof define === 'function' && define.amd) {" + os.EOL + 
+            "    define(function(){ return exports; });" + os.EOL +
+            "  } else {" + os.EOL +
+            "    window.di = exports; " + os.EOL +
+            "  }" + os.EOL + os.EOL +
             "  if (!('version' in exports)) {" + os.EOL +
             "    exports.version = '<%= pkg.version %>';" + os.EOL +
             "  }" + os.EOL + os.EOL,
           footer:
             os.EOL + os.EOL +
-            "  return exports;" + os.EOL + os.EOL +
-            "} (di));",
+            "} (window.di));",
           process: function (src, filepath) {
             var lines = src.split(os.EOL);
             for (var i = 0; i < lines.length; i++) {
