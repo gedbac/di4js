@@ -62,6 +62,7 @@ with __web browsers__ or with __node.js__.
 			* [param(name)](#diparamname)
 		* [withProperties()](#diwithproperties)
 			* [prop(name)](#dipropname)
+            * [func(name)](#difuncname)
 		* [val(instance)](#divalinstance)
 		* [ref(name)](#direfname)
 		* [setFactory(factory)](#disetfactoryfactory)
@@ -238,7 +239,18 @@ Defines property. Parameter *name* is required and has to be a string.
 	  .register('dieselEngine')
 	    .as(DieselEngine)
 		.withProperties()
-		  .prop('hp').value(140);
+		  .prop('hp').val(140);
+          
+### di.func(name)
+
+Defines function which has to be invoked while resoling type. Parameter *name* is required and has to be a string.
+
+    di
+      .register('car')
+        .as(Car)
+          .withProperties()
+            .func('setEngine')
+              .param().ref('dieselEngine');      
 
 ### di.val(instance)
 
@@ -250,7 +262,7 @@ Constructor parameter's value is defined.
 	  .register('dieselEngine')
 	    .as(DieselEngine)
 		.withConstructor()
-		  .param().value(140);
+		  .param().val(140);
 
 Property's value is defined.
 
@@ -258,7 +270,16 @@ Property's value is defined.
 	  .register('dieselEngine')
 	    .as(DieselEngine)
 		.withProperties()
-		  .prop('hp').value(140);
+		  .prop('hp').val(140);
+          
+Function paramter's value is defined.
+
+    di
+      .register('car')
+        .as(Car)
+          .withProperties()
+            .func('setEngine')
+              .param().val(new DieselEngine());
 
 ### di.ref(name)
 
@@ -277,6 +298,15 @@ Property can be resolved while instantiating a type.
 	  .register('car')
 		.withProperties()
           .prop('engine').ref('dieselEngine');
+          
+Function's paramter can be resolved while resolving a type.
+
+    di
+      .register('car')
+        .as(Car)
+          .withProperties()
+            .func('setEngine')
+              .param().ref('dieselEngine');  
 
 ### di.setFactory(factory)
 

@@ -205,7 +205,7 @@ module.exports = function (grunt) {
           './spec/**/*.js'
         ],
         frameworks: [ 'jasmine' ],
-        browsers: [ 'Chrome', 'Firefox', 'IE' ]
+        browsers: [ 'Chrome', 'Firefox', 'IE', 'Safari' ]
       },
       'watch': {
         autoWatch: true,
