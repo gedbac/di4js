@@ -106,6 +106,14 @@ Object.defineProperty(exports, 'prop', {
   }
 });
 
+Object.defineProperty(exports, 'func', {
+  value: function (name) {
+    return exports
+      .getDefaultDependencyResolver()
+      .func(name);
+  }
+});
+
 Object.defineProperty(exports, 'val', {
   value: function (instance) {
     return exports

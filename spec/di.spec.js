@@ -71,6 +71,10 @@ describe("Spec", function () {
     expect(di.prop).not.toBeUndefined();
   });
 
+  it("should have method 'func'", function () {
+    expect(di.func).not.toBeUndefined();
+  });
+
   it("should have method 'val'", function () {
     expect(di.val).not.toBeUndefined();
   });
@@ -245,26 +249,6 @@ describe("Spec", function () {
     var engine = new DieselEngine();
     di
       .register('dieselEngine')
-        .instance(engine);
-    di.inject(function (dieselEngine) {
-      callback(dieselEngine);
-    });
-    expect(callback).toHaveBeenCalledWith(engine);
-  });
-  
-  it("should inject dependencies with custom names to the module automatically", function () {
-    var customNameTransformer = {
-      transform: function (name) {
-        return name.replace(/([A-Z])/g, function (str) {
-          return '-' + str.toLowerCase();
-        });
-      }
-    };
-    var callback = jasmine.createSpy();
-    var engine = new DieselEngine();
-    di
-      .setNameTransformer(customNameTransformer)
-      .register('diesel-engine')
         .instance(engine);
     di.inject(function (dieselEngine) {
       callback(dieselEngine);
@@ -680,6 +664,28 @@ describe("Spec", function () {
       }).toThrow();
     });
 
+    it("should throw an exception if instance doesn't have defined property", function () {
+      resolver
+        .register('engine')
+          .as(DieselEngine)
+            .withProperties()
+              .prop('unknown').val(42);
+      expect(function () {
+        resolver.resolve('engine');
+      }).toThrow();
+    });
+
+    it("should throw an exception if instance doesn't have defined function", function () {
+      resolver
+        .register('engine')
+          .as(DieselEngine)
+            .withProperties()
+              .func('unknown');
+      expect(function () {
+        resolver.resolve('engine');
+      }).toThrow();
+    });
+
     it("should resolve registered object", function () {
       var engine = new DieselEngine();
       resolver.register('dieselEngine').instance(engine);
@@ -863,6 +869,38 @@ describe("Spec", function () {
           .as(DieselEngine)
           .withProperties();
       expect(resolver.__withProperties).toBe(true);
+    });
+
+    it("should invoke func", function () {
+      var setEngineSpy = jasmine.createSpy('setEngine');
+      var Car = function () {};
+      Car.prototype.setEngine = setEngineSpy;
+      resolver
+        .register('car')
+          .as(Car)
+            .withProperties()
+              .func('setEngine');
+      resolver.resolve('car');
+      expect(setEngineSpy).toHaveBeenCalled();
+    });
+
+    it("should invoke func with parameter", function () {
+      var setEngineSpy = jasmine.createSpy('setEngine');
+      var Car = function () {};
+      Car.prototype.setEngine = setEngineSpy;
+      resolver
+        .register('car')
+          .as(Car)
+            .withProperties()
+              .func('setEngine')
+                .param().val(new DieselEngine());
+      resolver.resolve('car');
+      expect(setEngineSpy).toHaveBeenCalled();
+      if (setEngineSpy.mostRecentCall) {
+        expect(setEngineSpy.mostRecentCall.args[0]).not.toBeUndefined();
+      } else {
+        expect(setEngineSpy.calls.mostRecent().args[0]).not.toBeUndefined();
+      }
     });
 
     it("should throw an exception while invoking the method 'withProperties', if registration's name is not set",

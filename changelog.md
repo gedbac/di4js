@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0 (???)
+
+- AMD support has been added
+- Option to invoke function while resolving type has been added
+
 ## 1.0.7 (2014-12-01)
 
 - Fixed bug: Dependencies' names has not been transformed while resolving dependencies in method 'inject'

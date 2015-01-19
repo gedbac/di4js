@@ -449,6 +449,7 @@
     this.__withConstructor = false;
     this.__parameter = null;
     this.__property = null;
+    this.__function = null;
     Object.defineProperty(this, '__parent', { enumerable: false });
     Object.defineProperty(this, '__defaultFactory', { enumerable: false });
     Object.defineProperty(this, '__nameTransformer', { enumerable: false });
@@ -459,6 +460,7 @@
     Object.defineProperty(this, '__withConstructor', { enumerable: false });
     Object.defineProperty(this, '__parameter', { enumerable: false });
     Object.defineProperty(this, '__property', { enumerable: false });
+    Object.defineProperty(this, '__function', { enumerable: false });
     Object.seal(this);
   };
   
@@ -537,12 +539,14 @@
         this.__registration.singleton = false;
         this.__registration.dependencies = {
           parameters: [],
-          properties: []
+          properties: [],
+          functions: []
         };
         this.__withConstructor = false;
         this.__withProperties = false;
         this.__parameter = null;
         this.__property = null;
+        this.__function = null;
         return this;
       },
       enumerable: true
@@ -566,6 +570,7 @@
         this.__withProperties = false;
         this.__parameter = null;
         this.__property = null;
+        this.__function = null;
         return this;
       },
       enumerable: true
@@ -585,6 +590,7 @@
         this.__withProperties = false;
         this.__parameter = null;
         this.__property = null;
+        this.__function = null;
         return this;
       },
       enumerable: true
@@ -603,6 +609,7 @@
         this.__withProperties = false;
         this.__parameter = null;
         this.__property = null;
+        this.__function = null;
         return this;
       },
       enumerable: true
@@ -616,39 +623,25 @@
         if (!this.__registration.type) {
           throw new DependencyResolverException("Type is not set for registration '" + this.__registration.name + "'");
         }
-        if (!this.__withConstructor) {
-          throw new DependencyResolverException("Invocation of method 'withConstructor' is missing for " +
-            "registration '" + this.__registration.name + "'");
-        }
-        var parameters = this.__registration.dependencies.parameters,
+        var parameters = null,
             parameter = null,
             index;
-        if (this.__autowired && (name === undefined || name === null)) {
-          throw new DependencyResolverException("Parameter 'name' has to be passed to the method, when dependency " +
-            "container has option 'autowired' enabled");
-        }
-        if (name !== null && name !== undefined) {
-          if (typeof name === 'number') {
-            index = name;
-            name = undefined;
-            if (index < 0) {
-              throw new DependencyResolverException("Parameter 'name' passed to the method 'param' is out of " +
-                "range for registration '" + this.__registration.name + "'");
-            }
-            if (index < parameters.length) {
-              parameter = parameters[index];
-            }
-          } else if (typeof name === 'string') {
-            for (var i = 0; i < parameters.length; i++) {
-              if (parameters[i].name === name) {
-                parameter = parameters[i];
-                break;
-              }
-            }
-          } else {
-            throw new DependencyResolverException("Parameter 'name' passed to the method 'param' has to " +
-              "be a 'number' or a 'string' for registration '" + this.__registration.name + "'");
+        if (this.__withConstructor) {
+          parameters = this.__registration.dependencies.parameters;
+          if (this.__autowired && (name === undefined || name === null)) {
+            throw new DependencyResolverException("Parameter 'name' has to be passed to the method, when dependency " +
+              "container has option 'autowired' enabled");
           }
+          parameter = this.__findParameter(name, parameters, this.__registration);
+        } else if (this.__withProperties) {
+          if (!this.__function) {
+            throw new DependencyResolverException("Function is not defined");
+          }
+          parameters = this.__function.parameters;
+          parameter = this.__findParameter(name, this.__function.parameters, this.__registration);
+        } else {
+          throw new DependencyResolverException("Invocation of method 'withConstructor' or 'withProperties' " + 
+            "is missing for registration '" + this.__registration.name + "'");
         }
         if (!parameter) {
           parameter = {
@@ -661,6 +654,7 @@
         }
         this.__parameter = parameter;
         this.__property = null;
+        this.__function = null;
         return this;
       },
       enumerable: true
@@ -678,6 +672,7 @@
         this.__withConstructor = false;
         this.__parameter = null;
         this.__property = null;
+        this.__function = null;
         return this;
       },
       enumerable: true
@@ -708,6 +703,7 @@
         for (var i = 0; i < properties.length; i++) {
           if (properties[i].name === name) {
             property = properties[i];
+            break;
           }
         }
         if (!property) {
@@ -720,6 +716,50 @@
         }
         this.__parameter = null;
         this.__property = property;
+        this.__function = null;
+        return this;
+      },
+      enumerable: true
+    },
+  
+    func: {
+      value: function (name) {
+        if (!this.__registration) {
+          throw new DependencyResolverException("Registration's name is not defined");
+        }
+        if (!name) {
+          throw new DependencyResolverException("Parameter 'name' is not passed to the method 'func' for " +
+            "registration '" + this.__registration.name + "'");
+        }
+        if (typeof name !== 'string') {
+          throw new DependencyResolverException("Parameter 'name' passed to the method 'func' has to be" +
+            " a 'string' for registration '" + this.__registration.name + "'");
+        }
+        if (!this.__registration.type) {
+          throw new DependencyResolverException("Type is not set for registration '" + this.__registration.name + "'");
+        }
+        if (!this.__withProperties) {
+          throw new DependencyResolverException("Invocation of method 'withProperties' is missing for " +
+            "registration '" + this.__registration.name + "'");
+        }
+        var functions = this.__registration.dependencies.functions,
+            func = null;
+        for (var i = 0; i < functions.length; i++) {
+          if (functions[i].name === name) {
+            func = functions[i];
+            break;
+          }
+        }
+        if (!func) {
+          func = {
+            name: name,
+            parameters: []
+          };
+          functions.push(func);
+        }
+        this.__parameter = null;
+        this.__property = null;
+        this.__function = func;
         return this;
       },
       enumerable: true
@@ -740,8 +780,8 @@
         if (this.__withConstructor && !this.__parameter) {
           throw new DependencyResolverException("Parameter is not defined");
         }
-        if (this.__withProperties && !this.__property) {
-          throw new DependencyResolverException("Property is not defined");
+        if (this.__withProperties && !this.__parameter && !this.__property) {
+          throw new DependencyResolverException("Parameter or property is not defined");
         }
         if (this.__parameter) {
           this.__parameter.value = instance;
@@ -773,12 +813,10 @@
             "is missing for registration '" + this.__registration.name + "'");
         }
         if (this.__withConstructor && !this.__parameter) {
-          throw new DependencyResolverException("Parameter is not defined for registration '" +
-            this.__registration.name + "'");
+          throw new DependencyResolverException("Parameter is not defined");
         }
-        if (this.__withProperties && !this.__property) {
-          throw new DependencyResolverException("Property is not defined for registration '" +
-            this.__registration.name + "'");
+        if (this.__withProperties && !this.__parameter && !this.__property) {
+          throw new DependencyResolverException("Parameter or property is not defined");
         }
         if (!this.contains(name)) {
           throw new DependencyResolverException("Type or instance is not registered with name '" + name + "'");
@@ -819,6 +857,7 @@
         this.__withProperties = false;
         this.__parameter = null;
         this.__property = null;
+        this.__function = null;
         return this;
       },
       enumerable: true
@@ -885,6 +924,7 @@
           } else if (typeof func === 'object') {
             if (registration) {
               this.__setProperties(func, registration, context);
+              this.__invokeFunctions(func, registration, context);
             } else {
               for (var propertyName in func) {
                 dependencyName = this.__resolveDependencyName(propertyName);
@@ -1060,6 +1100,7 @@
         this.__withConstructor = false;
         this.__parameter = null;
         this.__property = null;
+        this.__function = null;
       },
       enumerable: true
     },
@@ -1116,6 +1157,7 @@
         } else {
           instance = this.__createInstance(registration, context);
           this.__setProperties(instance, registration, context);
+          this.__invokeFunctions(instance, registration, context);
           if (instance && registration.singleton) {
             registration.instance = instance;
           }
@@ -1243,24 +1285,103 @@
       }
     },
   
+    __findParameter: {
+      value: function (name, parameters, registration) {
+        var parameter = null;
+        if (name !== null && name !== undefined && registration !== null) {
+          if (typeof name === 'number') {
+            index = name;
+            name = undefined;
+            if (index < 0) {
+              throw new DependencyResolverException("Parameter 'name' passed to the method 'param' is out of " +
+                "range for registration '" + registration.name + "'");
+            }
+            if (index < parameters.length) {
+              parameter = parameters[index];
+            }
+          } else if (typeof name === 'string') {
+            for (var i = 0; i < parameters.length; i++) {
+              if (parameters[i].name === name) {
+                parameter = parameters[i];
+                break;
+              }
+            }
+          } else {
+            throw new DependencyResolverException("Parameter 'name' passed to the method 'param' has to " +
+              "be a 'number' or a 'string' for registration '" + registration.name + "'");
+          }
+        }
+        return parameter;
+      }
+    },
+  
     __setProperties: {
       value: function (instance, registration, context) {
         if (registration.dependencies) {
           if (this.__autowired) {
             for (var propertyName in instance) {
               var dependencyName = this.__resolveDependencyName(propertyName);
-              if (!this.__hasProperty(propertyName) && this.contains(dependencyName)) {
+              if (!this.__hasProperty(registration, propertyName) && this.contains(dependencyName)) {
                 instance[propertyName] = this.__resolve(dependencyName, context);
               }
             }
           }
           for (var i = 0; i < registration.dependencies.properties.length; i++) {
             var property = registration.dependencies.properties[i];
+            if (!(property.name in instance)) {
+              throw new DependencyResolverException("Resolved object '" + registration.name + 
+                "' doesn't have property '" + property.name + "'");
+            }
             if (property.value !== undefined) {
               instance[property.name] = property.value;
             } else if (property.reference !== undefined) {
               instance[property.name] = this.__resolve(property.reference, context);
             }
+          }
+        }
+      }
+    },
+  
+    __invokeFunctions: {
+      value: function (instance, registration, context) {
+        if (registration.dependencies) {
+          var i, 
+              j, 
+              parameter, 
+              value;
+          for (i = 0; i < registration.dependencies.functions.length; i++) {
+            var func = registration.dependencies.functions[i];
+            if (!(func.name in instance)) {
+              throw new DependencyResolverException("Resolved object '" + registration.name + 
+                "' doesn't have function '" + func.name + "'");
+            }
+            var parameters = [];
+            for (j = 0; j < func.parameters.length; j++) {
+              parameter = func.parameters[j];
+              if (parameter.value !== undefined) {
+                value = parameter.value;
+              } else if (parameter.reference !== undefined) {
+                value = this.__resolve(parameter.reference, context);
+              } else {
+                value = null;
+              }
+              if (parameter.index !== undefined && parameter.index !== null) {
+                parameters[parameter.index] = value;
+              } else if (parameter.name) {
+                if (!args) {
+                  args = this.__getFunctionArguments(instance[func.name]);
+                }
+                index = args.indexOf(parameter.name);
+                if (index === -1) {
+                  throw new DependencyResolverException("Function doesn't have defined parameter '" + 
+                    parameter.name + "'");
+                }
+                parameters[index] = value;
+              } else {
+                parameters.push(value);
+              }
+            }
+            instance[func.name].apply(null, parameters);
           }
         }
       }
@@ -1378,6 +1499,14 @@
       return exports
         .getDefaultDependencyResolver()
         .prop(name);
+    }
+  });
+  
+  Object.defineProperty(exports, 'func', {
+    value: function (name) {
+      return exports
+        .getDefaultDependencyResolver()
+        .func(name);
     }
   });
   
