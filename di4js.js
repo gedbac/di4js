@@ -654,7 +654,6 @@
         }
         this.__parameter = parameter;
         this.__property = null;
-        this.__function = null;
         return this;
       },
       enumerable: true

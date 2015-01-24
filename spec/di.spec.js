@@ -889,17 +889,24 @@ describe("Spec", function () {
       var Car = function () {};
       Car.prototype.setEngine = setEngineSpy;
       resolver
+        .register('dieselEngine')
+          .as(DieselEngine)
         .register('car')
           .as(Car)
             .withProperties()
               .func('setEngine')
-                .param().val(new DieselEngine());
+                .param().ref('dieselEngine')
+                .param().val(2000);
       resolver.resolve('car');
       expect(setEngineSpy).toHaveBeenCalled();
       if (setEngineSpy.mostRecentCall) {
         expect(setEngineSpy.mostRecentCall.args[0]).not.toBeUndefined();
+        expect(setEngineSpy.mostRecentCall.args[0]).not.toBeNull();
+        expect(setEngineSpy.mostRecentCall.args[1]).toBe(2000);
       } else {
         expect(setEngineSpy.calls.mostRecent().args[0]).not.toBeUndefined();
+        expect(setEngineSpy.calls.mostRecent().args[0]).not.toBeNull();
+        expect(setEngineSpy.calls.mostRecent().args[1]).toBe(2000);
       }
     });
 
