@@ -500,7 +500,7 @@ Allows to set default dependency resolver.
 
 This flag allows to print an additional information to the output.
 
-    di.debig = true;
+    di.debug = true;
 
 ### di.dispose()
 
