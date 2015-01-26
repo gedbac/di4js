@@ -115,6 +115,10 @@ describe("Spec", function () {
     expect(di.getRegistration).not.toBeUndefined();
   });
 
+  it("should have method 'debug'", function () {
+    expect(di.debug).not.toBeUndefined();
+  });
+
   it("should have method 'dispose'", function () {
     expect(di.dispose).not.toBeUndefined();
   });

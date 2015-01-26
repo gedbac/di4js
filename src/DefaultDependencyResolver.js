@@ -1,18 +1,19 @@
-var __defaultDependencyResolver = null;
+var defaultDependencyResolver = null,
+    debug = false;
 
 Object.defineProperty(exports, 'getDefaultDependencyResolver', {
   value: function () {
-    if (!__defaultDependencyResolver) {
-      __defaultDependencyResolver = new DependencyResolver();
+    if (!defaultDependencyResolver) {
+      defaultDependencyResolver = new DependencyResolver();
     }
-    return __defaultDependencyResolver;
+    return defaultDependencyResolver;
   },
   enumerable: true
 });
 
 Object.defineProperty(exports, 'setDefaultDependencyResolver', {
   value: function (value) {
-    __defaultDependencyResolver = value;
+    defaultDependencyResolver = value;
   },
   enumerable: true
 });
@@ -218,6 +219,16 @@ Object.defineProperty(exports, 'getRegistration', {
     return exports
       .getDefaultDependencyResolver()
       .getRegistration(name);
+  },
+  enumerable: true
+});
+
+Object.defineProperty(exports, 'debug', {
+  get: function () {
+    return debug;
+  },
+  set: function (value) {
+    debug = value;
   },
   enumerable: true
 });

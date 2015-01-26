@@ -976,7 +976,9 @@
   
     resolve: {
       value: function (name) {
-        return this.__resolve(name, { resolving: [] });
+        return this.__resolve(name, { 
+          resolving: [] 
+        });
       },
       enumerable: true
     },
@@ -1139,6 +1141,13 @@
         if (typeof name !== 'string') {
           throw new DependencyResolverException("Parameter 'name' passed to the method 'resolve' has to be " +
             "a 'string'");
+        }
+        if (debug && console && 'log' in console) {
+          var message = "-> '" + name + "'";
+          for (var j = 0; j < context.resolving.length; j++) {
+            message = "  " + message;
+          }
+          console.log(message);
         }
         if (!this.contains(name)) {
           throw new DependencyResolverException("Type or instance with name '" + name + "' is not registered");
@@ -1393,21 +1402,22 @@
   
   exports.DependencyResolver = DependencyResolver;
 
-  var __defaultDependencyResolver = null;
+  var defaultDependencyResolver = null,
+      debug = false;
   
   Object.defineProperty(exports, 'getDefaultDependencyResolver', {
     value: function () {
-      if (!__defaultDependencyResolver) {
-        __defaultDependencyResolver = new DependencyResolver();
+      if (!defaultDependencyResolver) {
+        defaultDependencyResolver = new DependencyResolver();
       }
-      return __defaultDependencyResolver;
+      return defaultDependencyResolver;
     },
     enumerable: true
   });
   
   Object.defineProperty(exports, 'setDefaultDependencyResolver', {
     value: function (value) {
-      __defaultDependencyResolver = value;
+      defaultDependencyResolver = value;
     },
     enumerable: true
   });
@@ -1613,6 +1623,16 @@
       return exports
         .getDefaultDependencyResolver()
         .getRegistration(name);
+    },
+    enumerable: true
+  });
+  
+  Object.defineProperty(exports, 'debug', {
+    get: function () {
+      return debug;
+    },
+    set: function (value) {
+      debug = value;
     },
     enumerable: true
   });

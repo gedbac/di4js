@@ -74,6 +74,7 @@ with __web browsers__ or with __node.js__.
 	* [setNameTransformer(transformer)](#disetnametransformertransformer)
     * [getDefaultDependencyResolver()](#digetdefaultdependencyresolver)
     * [setDefaultDependencyResolver(value)](#disetdefaultdependencyresolvervalue)
+    * [debug](#didebug)
 	* [dispose()](#didispose)
 	* [version](#diversion)
 * [License](#license)
@@ -494,6 +495,12 @@ Returns default dependency resolver.
 ### di.setDefaultDependencyResolver(value)
 
 Allows to set default dependency resolver.
+
+### di.debug
+
+This flag allows to print an additional information to the output.
+
+    di.debig = true;
 
 ### di.dispose()
 

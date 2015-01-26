@@ -4,6 +4,7 @@
 
 - AMD support has been added
 - Option to invoke function while resolving type has been added
+- 'debug' mode is included. This flag allows to print an additional information to the output.
 
 ## 1.0.7 (2014-12-01)
 

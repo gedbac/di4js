@@ -536,7 +536,9 @@ DependencyResolver.prototype = Object.create(Object.prototype, {
 
   resolve: {
     value: function (name) {
-      return this.__resolve(name, { resolving: [] });
+      return this.__resolve(name, { 
+        resolving: [] 
+      });
     },
     enumerable: true
   },
@@ -699,6 +701,13 @@ DependencyResolver.prototype = Object.create(Object.prototype, {
       if (typeof name !== 'string') {
         throw new DependencyResolverException("Parameter 'name' passed to the method 'resolve' has to be " +
           "a 'string'");
+      }
+      if (debug && console && 'log' in console) {
+        var message = "-> '" + name + "'";
+        for (var j = 0; j < context.resolving.length; j++) {
+          message = "  " + message;
+        }
+        console.log(message);
       }
       if (!this.contains(name)) {
         throw new DependencyResolverException("Type or instance with name '" + name + "' is not registered");
