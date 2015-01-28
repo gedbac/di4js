@@ -166,6 +166,16 @@ Defines registration's name. Parameter *name* is required and has to be a string
 
 	di.register('dieselEngine');
 
+Multiple registration's can be defined for a single name. A list of instances will be returned while resolving such registration by name.
+
+	di
+		.register('engine')
+			.instance(new DieselEngine())
+		.register('engine')
+			.instance(new PetrolEngine());
+
+    var engines = di.resolve('engine'); // []
+
 ### di.as(type)
 
 Maps a name with the given type. Parameter *type* is required and has to be a function.

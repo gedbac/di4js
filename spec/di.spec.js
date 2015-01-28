@@ -14,6 +14,14 @@ describe("Spec", function () {
     console.log("Diesel engine with " + this.hp + " hp has been started...");
   };
 
+  var PetrolEngine = function () {
+    this.hp = 0;
+  };
+
+  PetrolEngine.prototype.start = function () {
+    console.log("Petrol engine with " + this.hp + " hp has been started...");
+  };
+
   var Car = function (engine, year) {
     this.engine = engine;
     this.year = year;
@@ -363,7 +371,7 @@ describe("Spec", function () {
     expect(car.engine).toBe(engine);
   });
 
-  it("shoudl create a child container", function () {
+  it("should create a child container", function () {
     di
       .register('dieselEngine')
         .as(DieselEngine);
@@ -695,6 +703,20 @@ describe("Spec", function () {
       resolver.register('dieselEngine').instance(engine);
       var instance = resolver.resolve('dieselEngine');
       expect(instance).toBe(engine);
+    });
+
+    it("should resolve an array of object", function () {
+      var dieselEngine = new DieselEngine();
+      var petrolEngine = new PetrolEngine();
+      resolver
+        .register('engine')
+          .instance(dieselEngine)
+        .register('engine')
+          .instance(petrolEngine);
+      var array = resolver.resolve('engine');
+      expect(array).not.toBeNull();
+      expect(array[0]).toBe(dieselEngine);
+      expect(array[1]).toBe(petrolEngine);
     });
 
     it("should resolve registered number", function () {

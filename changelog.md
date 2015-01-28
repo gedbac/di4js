@@ -1,10 +1,11 @@
 # Changelog
 
-## 1.1.0 (???)
+## 1.1.0 (2015-01-28)
 
 - AMD support has been added
 - Option to invoke function while resolving type has been added
-- 'debug' mode is included. This flag allows to print an additional information to the output.
+- Mode 'debug' is included. This flag allows to print an additional information to the output
+- Multiple registrations with same name can be defined
 
 ## 1.0.7 (2014-12-01)
 
