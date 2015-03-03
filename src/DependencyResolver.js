@@ -980,7 +980,7 @@ DependencyResolver.prototype = Object.create(Object.prototype, {
               parameters.push(value);
             }
           }
-          instance[func.name].apply(null, parameters);
+          instance[func.name].apply(instance, parameters);
         }
       }
     }

@@ -11,7 +11,7 @@
   }
 
   if (!('version' in exports)) {
-    exports.version = '1.1.0';
+    exports.version = '1.1.1';
   }
 
   var DependencyResolverException = function (message) {
@@ -1420,7 +1420,7 @@
                 parameters.push(value);
               }
             }
-            instance[func.name].apply(null, parameters);
+            instance[func.name].apply(instance, parameters);
           }
         }
       }

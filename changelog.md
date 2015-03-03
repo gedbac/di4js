@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1 (2015-03-03)
+
+- Function invocation has been fixed
+
 ## 1.1.0 (2015-01-28)
 
 - AMD support has been added
