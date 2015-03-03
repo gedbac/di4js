@@ -124,7 +124,7 @@ Theare are few options to install __di4js__ to the web  browser. Module can be d
 
 #### AMD
 
-di4js is compatible asynchronous module definition (AMD) and it can be loaded as ordinal module.
+di4js is compatible with asynchronous module definition (AMD) and it can be loaded as ordinal module.
 
     define(['di4js'], function (di) {
     

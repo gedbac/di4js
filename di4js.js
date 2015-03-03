@@ -11,7 +11,7 @@
   }
 
   if (!('version' in exports)) {
-    exports.version = '1.1.1';
+    exports.version = '1.1.2';
   }
 
   var DependencyResolverException = function (message) {
