@@ -1,7 +1,7 @@
 {
   "name": "di4js",
   "main": "di4js.js",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "homepage": "https://github.com/gedbac/di4js",
   "authors": [
     "Gediminas Backevicius <gediminas.backevicius@gmail.com>"

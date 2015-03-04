@@ -1,7 +1,7 @@
 {
   "name": "di4js",
   "description": "The di4js module is dependency injection implementation in JavaScript. Dependency injection is a software design pattern that allows the removal of hard-coded dependencies and makes it possible to change them.",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "author": "Gediminas Backevicius <gediminas.backevicius@gmail.com>",
   "bugs": {
     "url": "https://github.com/gedbac/di4js/issues"
@@ -30,17 +30,17 @@
     "grunt-contrib-clean": "~0.6.0",
     "grunt-contrib-concat": "~0.5.0",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-contrib-jasmine": "~0.8.1",
+    "grunt-contrib-jasmine": "~0.8.2",
     "grunt-jasmine-node": "~0.2.1",
     "grunt-contrib-uglify": "~0.8.0",
-    "grunt-karma": "^0.10.1",
+    "grunt-karma": "~0.10.1",
     "jasmine-core": "~2.2.0",
-    "karma": "^0.12.28",
-    "karma-chrome-launcher": "^0.1.5",
-    "karma-firefox-launcher": "^0.1.3",
-    "karma-ie-launcher": "^0.1.5",
-    "karma-safari-launcher": "^0.1.1",
-    "karma-jasmine": "^0.3.2",
-    "karma-jasmine-html-reporter": "^0.1.5"
+    "karma": "0.12.31",
+    "karma-chrome-launcher": "~0.1.7",
+    "karma-firefox-launcher": "~0.1.4",
+    "karma-ie-launcher": "~0.1.5",
+    "karma-safari-launcher": "~0.1.1",
+    "karma-jasmine": "~0.3.5",
+    "karma-jasmine-html-reporter": "~0.1.6"
   }
 }

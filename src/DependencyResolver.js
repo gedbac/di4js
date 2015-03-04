@@ -10,6 +10,9 @@ var DependencyResolver = function (parent) {
   this.__parameter = null;
   this.__property = null;
   this.__function = null;
+  if (parent) {
+    this.__autowired = parent.isAutowired;
+  }
   Object.defineProperty(this, '__parent', { enumerable: false });
   Object.defineProperty(this, '__defaultFactory', { enumerable: false });
   Object.defineProperty(this, '__nameTransformer', { enumerable: false });
@@ -635,7 +638,7 @@ DependencyResolver.prototype = Object.create(Object.prototype, {
           throw new DependencyResolverException("Dependency resolver's parent doesn't have a " +
             "method 'getRegistration'");
         }
-        registration = this.parent.getRegistration();
+        registration = this.__parent.getRegistration(name);
       }
       return registration;
     },
