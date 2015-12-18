@@ -1093,7 +1093,7 @@
           for (var name in this.__container) {
             if (!(this.__container[name] instanceof Array)) {
               registration = this.__container[name];
-              if (registration.instance && ('dispose' in registration.instance)) {
+              if (registration.instance && (typeof registration.instance.dispose === "function")) {
                 registration.instance.dispose();
               }
               registration.instance = null;
@@ -1102,7 +1102,7 @@
               var registrations = this.__container[name];
               for (i = 0; i < registrations.length; i++) {
                 registration = registrations[i];
-                if (registration.instance && ('dispose' in registration.instance)) {
+                if (registration.instance && (typeof registration.instance.dispose === "function")) {
                   registration.instance.dispose();
                 }
                 registration.instance = null;
@@ -1435,6 +1435,7 @@
   Object.seal(DependencyResolver.prototype);
   
   exports.DependencyResolver = DependencyResolver;
+  
 
   var defaultDependencyResolver = null,
       debug = false;
