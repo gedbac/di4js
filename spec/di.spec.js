@@ -131,6 +131,11 @@ describe("Spec", function () {
     expect(di.dispose).not.toBeUndefined();
   });
 
+  it("should method 'dispose' not to crash with non-object references", function () {
+    di.register("dieselEngine").instance("dieselEngine");
+    expect(di.dispose).not.toThrow();
+  });
+
   it("should activate auto resolving", function () {
     di.autowired();
     expect(di.getDefaultDependencyResolver().isAutowired).toBe(true);
