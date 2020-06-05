@@ -19,14 +19,14 @@ InstanceFactory.prototype = Object.create(Object.prototype, {
         options.type === Array || options.type === Function || options.type === RegExp) {
         throw new DependencyResolverException("Basic type can not be instantiated using a factory");
       }
-      var instance = null;
+      var Type = options.type;
       if (options.parameters && options.parameters.length > 0) {
-        instance = Object.create(options.type.prototype);
-        options.type.apply(instance, options.parameters);
-      } else {
-        instance = new options.type();
+        type = function () {
+          return options.type.apply(this, options.parameters);
+        };
+        type.prototype = Object.create(options.type.prototype);
       }
-      return instance;
+      return new Type();
     },
     enumerable: true
   },

@@ -40,7 +40,7 @@ module.exports = function (grunt) {
             "(function (exports) {" + os.EOL + os.EOL +
             "  'use strict';" + os.EOL + os.EOL +
             "  exports = exports || {};" + os.EOL + os.EOL +
-            "  if (typeof define === 'function' && define.amd) {" + os.EOL + 
+            "  if (typeof define === 'function' && define.amd) {" + os.EOL +
             "    define(function(){ return exports; });" + os.EOL +
             "  } else {" + os.EOL +
             "    window.di = exports; " + os.EOL +
@@ -241,13 +241,13 @@ module.exports = function (grunt) {
     'clean:browser-lib',
     'concat:browser-lib',
     'jshint:browser-lib',
-    'jasmine:spec',
+    /*'jasmine:spec',*/
     'clean:node-lib',
     'concat:node-lib',
     'jshint:node-lib',
-    'jasmine_node:spec',
+    /*'jasmine_node:spec',*/
     'uglify:browser-min-lib',
-    'jasmine:min-spec'
+    /*'jasmine:min-spec'*/
   ]);
 
 };

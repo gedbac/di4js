@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.3 (2020-06-05)
+
+- Object creation has been fixed
+
 ## 1.1.3 (2015-03-04)
 
 - Registration resolving from parent's cantainer has been fixed

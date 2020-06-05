@@ -49,7 +49,6 @@ with __web browsers__ or with __node.js__.
 * [Installation](#installation)
 	* [Node.js](#nodejs)
 	* [Web Browser](#web-browser)
-		* [Bower](#bower)
 		* [NuGet](#nuget)
 * [API](#api)
 	* [autowired(value)](#diautowiredvalue)
@@ -112,7 +111,7 @@ Also __di4js__ module's loading statement should be added to main module:
 
 ### Web Browser
 
-Theare are few options to install __di4js__ to the web  browser. Module can be downloaded or can be installed using __Bower__ or __NuGet__ package manager.
+Theare are few options to install __di4js__ to the web  browser. Module can be downloaded or can be installed using __NuGet__ package manager.
 
 	<!DOCTYPE HTML>
 	<html>
@@ -127,14 +126,8 @@ Theare are few options to install __di4js__ to the web  browser. Module can be d
 di4js is compatible with asynchronous module definition (AMD) and it can be loaded as ordinal module.
 
     define(['di4js'], function (di) {
-    
+
     });
-
-### Bower
-
-To install __di4js__, run the following command.
-
-	bower install di4js
 
 ### NuGet
 
@@ -158,14 +151,14 @@ If autowired is enabled for dependency resolver, all type's or instance's depend
         .as(Car);
 
     di.resolve('car'); // { engine: { hp: 42 } }
-    
+
 ### di.isAutowired
 
 Allows to check if autowired is enabled.
 
     di
       .autowired();
-      
+
     di.isAutowired; // true
 
 ### di.register(name)
@@ -259,7 +252,7 @@ Defines property. Parameter *name* is required and has to be a string.
 	    .as(DieselEngine)
 		.withProperties()
 		  .prop('hp').val(140);
-          
+
 ### di.func(name)
 
 Defines function which has to be invoked while resoling type. Parameter *name* is required and has to be a string.
@@ -269,7 +262,7 @@ Defines function which has to be invoked while resoling type. Parameter *name* i
         .as(Car)
           .withProperties()
             .func('setEngine')
-              .param().ref('dieselEngine');      
+              .param().ref('dieselEngine');
 
 ### di.val(instance)
 
@@ -290,7 +283,7 @@ Property's value is defined.
 	    .as(DieselEngine)
 		.withProperties()
 		  .prop('hp').val(140);
-          
+
 Function paramter's value is defined.
 
     di
@@ -317,7 +310,7 @@ Property can be resolved while instantiating a type.
 	  .register('car')
 		.withProperties()
           .prop('engine').ref('dieselEngine');
-          
+
 Function's paramter can be resolved while resolving a type.
 
     di
@@ -325,7 +318,7 @@ Function's paramter can be resolved while resolving a type.
         .as(Car)
           .withProperties()
             .func('setEngine')
-              .param().ref('dieselEngine');  
+              .param().ref('dieselEngine');
 
 ### di.setFactory(factory)
 
@@ -505,7 +498,7 @@ An object which has method *transform* can be used.
 	    .as(Tractor);
 
 	di.resolve('tractor'); { dieselEngine: { hp: 0 } }
-    
+
 ### di.getDefaultDependencyResolver()
 
 Returns default dependency resolver.
