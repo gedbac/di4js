@@ -11,7 +11,7 @@
   }
 
   if (!('version' in exports)) {
-    exports.version = '1.1.4';
+    exports.version = '1.1.5';
   }
 
   var DependencyResolverException = function (message) {
@@ -234,10 +234,10 @@
         }
         var Type = options.type;
         if (options.parameters && options.parameters.length > 0) {
-          type = function () {
+          Type = function () {
             return options.type.apply(this, options.parameters);
           };
-          type.prototype = Object.create(options.type.prototype);
+          Type.prototype = Object.create(options.type.prototype);
         }
         return new Type();
       },

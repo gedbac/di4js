@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.1.3 (2020-06-05)
+## 1.1.5 (2020-06-12)
+
+- Object creation has been fixed
+
+## 1.1.4 (2020-06-05)
 
 - Object creation has been fixed
 
